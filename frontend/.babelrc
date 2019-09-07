@@ -1,0 +1,28 @@
+{
+  "presets": [
+    [
+      "@babel/env",
+      {
+        "targets": {
+          "browsers": [">0.2%", "not dead", "not ie <= 11", "not op_mini all"]
+        },
+        "modules": false,
+        "useBuiltIns": true
+      }
+    ],
+    "@babel/react"
+  ],
+  "plugins": [
+    "@babel/plugin-proposal-optional-chaining",
+    "@babel/plugin-syntax-object-rest-spread",
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
+    ["@babel/plugin-proposal-class-properties", { "loose": true }],
+    [
+      "@babel/transform-runtime",
+      {
+        "regenerator": true
+      }
+    ],
+    ["transform-inline-environment-variables"]
+  ]
+}

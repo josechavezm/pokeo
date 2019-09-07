@@ -1,0 +1,41 @@
+{
+  "host": "localhost",
+  "port": 3030,
+  "public": "../public/",
+  "paginate": {
+    "default": 10,
+    "max": 50
+  },
+  "authentication": {
+    "entity": "user",
+    "service": "api/users",
+    "secret": "MMrw79zuW00+bgtS8KTrMHZj480=",
+    "authStrategies": ["jwt", "local"],
+    "jwtOptions": {
+      "header": {
+        "typ": "access"
+      },
+      "audience": "https://yourdomain.com",
+      "issuer": "feathers",
+      "algorithm": "HS256",
+      "expiresIn": "1d"
+    },
+    "local": {
+      "usernameField": "email",
+      "passwordField": "password"
+    },
+    "oauth": {
+      "redirect": "/",
+      "google": {
+        "key": "<google oauth key>",
+        "secret": "<google oauth secret>",
+        "scope": ["email", "profile", "openid"]
+      },
+      "github": {
+        "key": "<github oauth key>",
+        "secret": "<github oauth secret>"
+      }
+    }
+  },
+  "mongodb": "mongodb://localhost:27017/pokeo"
+}

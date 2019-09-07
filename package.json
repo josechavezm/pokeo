@@ -1,0 +1,20 @@
+{
+  "name": "scrum_poker",
+  "private": true,
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "private",
+  "scripts": {
+    "dev-cms": "cd frontend && npm run dev",
+    "dev-backend": "cd backend && npm run dev",
+    "dev": "concurrently \"npm run dev-backend\"  \"npm run dev-cms\""
+  },
+  "author": "José Chávez",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "devDependencies": {
+    "concurrently": "^4.1.0"
+  }
+}

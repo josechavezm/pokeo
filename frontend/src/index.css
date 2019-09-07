@@ -1,0 +1,17 @@
+@tailwind base;
+
+html {
+  @apply font-sans;
+}
+
+body {
+  background: rgb(0, 201, 255);
+  min-height: calc(100vh + 1px);
+  background: linear-gradient(137deg, rgba(0, 201, 255, 1) 0%, rgba(146, 254, 157, 1) 100%);
+  @apply bg-no-repeat;
+  @apply bg-cover;
+}
+
+@tailwind components;
+
+@tailwind utilities;
