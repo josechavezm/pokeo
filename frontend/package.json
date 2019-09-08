@@ -7,14 +7,16 @@
     "dev": "node index.js",
     "clean": "rm -rf ./build",
     "build": "yarn clean && parcel build ./public/index.html -d ./build",
-    "test": "jest"
+    "test": "jest --watch"
   },
   "dependencies": {
     "@feathersjs/client": "^4.3.0",
+    "@xstate/fsm": "^0.2.1",
     "classnames": "^2.2.6",
     "parcel-bundler": "^1.12.3",
     "parcel-proxy-server": "^1.1.0",
     "react": "^16.9.0",
+    "react-confetti": "^4.0.1",
     "react-dom": "^16.9.0",
     "react-router-dom": "^5.0.1",
     "socket.io-client": "^2.2.0",
@@ -28,6 +30,9 @@
     "@babel/plugin-transform-runtime": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
     "@fullhuman/postcss-purgecss": "^1.2.0",
+    "@testing-library/jest-dom": "^4.1.0",
+    "@testing-library/react": "^9.1.4",
+    "@testing-library/user-event": "^7.0.0",
     "babel-plugin-transform-inline-environment-variables": "^0.4.3",
     "eslint": "^6.3.0",
     "eslint-config-standard": "^14.1.0",
@@ -35,6 +40,7 @@
     "eslint-plugin-node": "^10.0.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.14.3",
-    "eslint-plugin-standard": "^4.0.1"
+    "eslint-plugin-standard": "^4.0.1",
+    "jest": "^24.9.0"
   }
 }

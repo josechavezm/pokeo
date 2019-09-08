@@ -1,2 +1,2 @@
 export { default as Master } from './Master'
-export { default as Member } from './Member'
+export { default as Room } from './Room'

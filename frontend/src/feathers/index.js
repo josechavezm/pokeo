@@ -17,6 +17,7 @@ app.configure(
 )
 
 export const services = {
+  users: app.service('api/users'),
   rooms: app.service('api/rooms'),
   roomMembership: app.service('api/room-membership')
 }

@@ -1,8 +1,9 @@
-
+const allowAnonymous = require('../../hooks/allow-anonymous');
+const { authenticate } = require('@feathersjs/authentication').hooks;
 
 module.exports = {
   before: {
-    all: [],
+    all: [allowAnonymous(), authenticate('jwt', 'anonymous')],
     find: [],
     get: [],
     create: [],

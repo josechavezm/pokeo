@@ -9,8 +9,9 @@ module.exports = function(app) {
   const rooms = new Schema(
     {
       slug: { type: String, unique: true },
-      count: { type: Number, required: true },
-      votes: [Number]
+      votersCount: { type: Number, required: true },
+      estimations: [{ userId: { type: Schema.Types.ObjectId, ref: 'users' }, value: Number }],
+      createdBy: { type: Schema.Types.ObjectId, ref: 'users' }
     },
     {
       timestamps: true

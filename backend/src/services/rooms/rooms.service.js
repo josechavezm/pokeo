@@ -19,7 +19,6 @@ module.exports = function(app) {
   const service = app.service('api/rooms');
 
   service.publish((data, context) => {
-    // Filter the channels to only authenticated
     return app.channel(`room/${data.slug}`);
   });
 

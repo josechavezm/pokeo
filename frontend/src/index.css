@@ -7,9 +7,25 @@ html {
 body {
   background: rgb(0, 201, 255);
   min-height: calc(100vh + 1px);
-  background: linear-gradient(137deg, rgba(0, 201, 255, 1) 0%, rgba(146, 254, 157, 1) 100%);
+  background: linear-gradient(137deg, rgba(146, 254, 157, 1) 0%, rgba(0, 201, 255, 1) 100%);
   @apply bg-no-repeat;
   @apply bg-cover;
+}
+
+.h-128 {
+  height: 32rem;
+}
+
+.text-cyan {
+  color: rgba(0, 201, 255, 1);
+}
+
+.font-numbers {
+  font-family: 'Vibur', cursive;
+}
+
+.text-7xl {
+  font-size: 5rem;
 }
 
 @tailwind components;

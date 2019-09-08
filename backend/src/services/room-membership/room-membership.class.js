@@ -1,3 +1,4 @@
+const { NotFound } = require('@feathersjs/errors');
 /* eslint-disable no-unused-vars */
 exports.RoomMembership = class RoomMembership {
   constructor(options, app) {
@@ -6,11 +7,22 @@ exports.RoomMembership = class RoomMembership {
   }
 
   async create(data, params) {
-    if (params.connection) {
-      this.app.channel(`room/${data.slug}`).join(params.connection);
+    const rooms = await this.app.service('api/rooms').find({ query: { slug: data.slug } });
+    const room = rooms.data[0];
+    if (!room) {
+      throw new NotFound('La sala no existe');
     }
-    const room = await this.app.service('api/rooms').find({ slug: data.slug });
-    return room.data[0];
+    console.log('creating membership');
+    if (params.connection) {
+      try {
+        this.app.channel(`room/${data.slug}`).join(params.connection);
+        console.log(this.app.channel(`room/${data.slug}`));
+        console.log('joined room');
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    return room;
   }
 
   async remove(slug, params) {
