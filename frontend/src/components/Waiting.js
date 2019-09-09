@@ -1,10 +1,23 @@
 import React from 'react'
+import { useUser } from '../layouts/Auth'
+import Card from './Card'
 
-const Waiting = ({ room }) => {
+const Waiting = ({ room, morphs, availableVotes }) => {
+  const { user } = useUser()
   const missing = room.votersCount - room.estimations.length
+  console.log('TCL: Waiting -> room.estimations.length', room.estimations.length)
+  console.log('TCL: Waiting -> room.votersCount', room.votersCount)
+  const vote = room.estimations.find(e => e.userId === user._id)
+
   return (
-    <div>
-      <p>{missing > 1 ? `Faltan ${missing} votos` : 'Falta 1 voto'}</p>
+    <div className="text-center">
+      <p>{missing > 1 ? `Aún faltan ${missing} votos` : 'aun falta 1 voto'}</p>
+      {vote && <p>Ya has emitido tu voto y fue</p>}
+      {vote && (
+        <div className="flex justify-center mt-4">
+          <Card {...morphs[vote.value]} value={vote.value}></Card>
+        </div>
+      )}
     </div>
   )
 }

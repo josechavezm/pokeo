@@ -1,19 +1,21 @@
 import React from 'react'
 import cxs from 'classnames'
 
-const Card = ({ clickable = false, onClick, value, className }) => {
+const Card = ({ clickable = false, onClick, value, className, ...props }, ref) => {
   return (
-    <button
-      onClick={onClick}
-      className={cxs(
-        'text-5xl text-cyan font-numbers shadow-xl font-bold mb-8 min-w-8 block bg-white py-20',
-        className,
-        { zoom: clickable }
-      )}
-    >
-      {value}
-    </button>
+    <div className="mb-8 flex">
+      <button
+        onClick={onClick}
+        className={cxs('card', className, {
+          zoom: clickable
+        })}
+        ref={ref}
+        {...props}
+      >
+        {value}
+      </button>
+    </div>
   )
 }
 
-export default Card
+export default React.forwardRef(Card)

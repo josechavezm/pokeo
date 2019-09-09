@@ -9,7 +9,7 @@ const MembersCountForm = ({ onSubmit }) => {
   }
 
   const options = [...Array(10).keys()]
-
+  options.shift()
   return (
     <form className="text-center" onSubmit={handleSubmit}>
       <label className="block mt-4" htmlFor="voters-count">

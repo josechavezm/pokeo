@@ -3,14 +3,19 @@ import Confetti from 'react-confetti'
 import Card from './Card'
 import Button from './Button'
 
-const ShowResult = ({ isCreator, room, onNewVote }) => {
+const ShowResult = ({ isCreator, morphs, room, onNewVote }) => {
   const isAllEqual = room.estimations.every(e => e.value === room.estimations[0].value)
   return (
     <div>
       {isAllEqual ? (
         <div className="">
-          <Confetti />
-          <Card className="w-full max-w-sm m-auto h-128 text-7xl" value={room.estimations[0].value} />
+          <Confetti width={document.body.clientWidth} />
+          <h1 className="text-2xl">Felicidades, todos votaron por igual!</h1>
+          <Card
+            {...morphs[room.estimations[0].value]}
+            className="w-full max-w-sm m-auto h-128 text-7xl"
+            value={room.estimations[0].value}
+          />
         </div>
       ) : (
         <div>
