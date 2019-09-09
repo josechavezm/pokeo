@@ -9,21 +9,23 @@ export const useUser = () => {
 
 const Auth = ({ children }) => {
   const [user, setUser] = useState(null)
-  useEffect(() => {
-    const authLogic = async () => {
-      let response
-      try {
-        response = await app.reAuthenticate()
-      } catch (error) {
-        response = await app.authenticate({ strategy: 'anonymous' })
-      } finally {
-        setUser(response.user)
-      }
+
+  const login = async () => {
+    let response
+    try {
+      response = await app.reAuthenticate()
+    } catch (error) {
+      response = await app.authenticate({ strategy: 'anonymous' })
+    } finally {
+      setUser(response.user)
     }
-    authLogic()
+  }
+
+  useEffect(() => {
+    login()
   }, [])
   if (!user) return null
-  return <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
+  return <AuthContext.Provider value={{ user, login }}>{children}</AuthContext.Provider>
 }
 
 export default Auth

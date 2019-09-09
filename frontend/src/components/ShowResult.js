@@ -22,7 +22,6 @@ const ShowResult = ({ isCreator, room, onNewVote }) => {
           </div>
         </div>
       )}
-      {isCreator && <Button onClick={onNewVote}>Empezar nueva votación</Button>}
     </div>
   )
 }
