@@ -16,7 +16,7 @@
       "repo": "git@gitlab.com:jsergio.chavez/pokeo.git",
       "path": "/home/jchavez/pokeo/",
       "post-deploy": "sh deploy.sh",
-      "pre-deploy-local": "sh pre-deploy-production.sh"
+      "pre-deploy-local": "sh pre-production-deploy.sh"
     },
     "backend": {
       "user": "jchavez",
