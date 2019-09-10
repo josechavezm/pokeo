@@ -1,4 +1,4 @@
 {
-  "host": "pokeo-app.feathersjs.com",
-  "port": "PORT"
+  "host": "pokeo.turbolabs.pe",
+  "port": 3030
 }
