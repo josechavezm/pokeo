@@ -11,6 +11,10 @@ import { useMorphKeys } from 'react-morph'
 
 const Member = ({ room, ...props }) => {
   const { user } = useUser()
+  // const firstRender = useRef(true)
+  // useEffect(() => {
+  //   firstRender.current = false
+  // }, [])
 
   const userVoted = room.estimations.map(e => e.userId).includes(user._id)
 
@@ -80,7 +84,9 @@ const Member = ({ room, ...props }) => {
     if (state.value === 'showResult') {
       return room.estimations.length > 0 && <ShowResult morphs={morphs} room={room} />
     }
-    if (state.value === 'voting') return <Voting availableVotes={availableVotes} morphs={morphs} onVote={patchRoom} />
+    if (state.value === 'voting') {
+      return <Voting availableVotes={availableVotes} morphs={morphs} onVote={patchRoom} />
+    }
     if (state.value === 'waiting') {
       return <Waiting availableVotes={availableVotes} morphs={morphs} room={room}></Waiting>
     }

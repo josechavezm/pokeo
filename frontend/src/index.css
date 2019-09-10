@@ -12,32 +12,25 @@ body {
   @apply bg-cover;
 }
 
-.h-128 {
-  height: 32rem;
-}
-
 .text-cyan {
   color: rgba(0, 201, 255, 1);
 }
 
-.font-numbers {
-  font-family: 'Vibur', cursive;
-}
-
-.text-7xl {
-  font-size: 5rem;
-}
 .zoom:hover {
   transform: scale(1.2);
   transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 }
 
+.container {
+  @apply px-4;
+}
+
 .card {
-  @apply text-5xl shadow-xl font-bold w-32 block bg-white flex justify-center items-center;
+  @apply text-5xl shadow-xl font-bold w-32 block bg-white flex justify-center items-center font-numbers;
   height: 12rem;
   color: rgba(0, 201, 255, 1);
-  font-family: 'Vibur', cursive;
+  will-change: transform, opacity, zoom;
 }
 
 @tailwind components;
