@@ -13,6 +13,7 @@ const Voting = ({ availableVotes, firstRender, onVote, morphs }) => {
   // })
   const handleVote = a => {
     onVote(a)
+    setDisabled(true)
   }
 
   return (
