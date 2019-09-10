@@ -40,6 +40,7 @@
     "@feathersjs/socketio": "^4.3.0",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
+    "express-static-gzip": "^2.0.5",
     "feathers-mongoose": "^8.0.2",
     "helmet": "^3.20.0",
     "mongodb-core": "^3.2.7",

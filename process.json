@@ -1,0 +1,30 @@
+{
+  "apps": [
+    {
+      "name": "pokeo",
+      "script": "./src/index.js",
+      "env_production": {
+        "NODE_ENV": "production"
+      }
+    }
+  ],
+  "deploy": {
+    "app": {
+      "user": "jchavez",
+      "host": "pokeo.turbolabs.pe",
+      "ref": "origin/master",
+      "repo": "git@gitlab.com:jsergio.chavez/pokeo.git",
+      "path": "/home/jchavez/pokeo/",
+      "post-deploy": "sh deploy.sh",
+      "pre-deploy-local": "sh pre-deploy-production.sh"
+    },
+    "backend": {
+      "user": "jchavez",
+      "host": "pokeo.turbolabs.pe",
+      "ref": "origin/master",
+      "repo": "git@gitlab.com:jsergio.chavez/pokeo.git",
+      "path": "/home/jchavez/pokeo/",
+      "post-deploy": "sh deploy.sh"
+    }
+  }
+}

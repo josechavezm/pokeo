@@ -1,6 +1,7 @@
 const path = require('path');
 const favicon = require('serve-favicon');
 const compress = require('compression');
+const expressStaticGzip = require('express-static-gzip');
 const helmet = require('helmet');
 const cors = require('cors');
 const logger = require('./logger');
@@ -9,7 +10,6 @@ const feathers = require('@feathersjs/feathers');
 const configuration = require('@feathersjs/configuration');
 const express = require('@feathersjs/express');
 const socketio = require('@feathersjs/socketio');
-
 
 const middleware = require('./middleware');
 const services = require('./services');
@@ -32,7 +32,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
 // Host the public folder
-app.use('/', express.static(app.get('public')));
+app.use('/public', express.static(app.get('public')));
+app.use(
+  expressStaticGzip(path.join(__dirname, '..', '..', 'cms/build'), {
+    enableBrotli: true
+  })
+);
 
 // Set up Plugins and providers
 app.configure(express.rest());
@@ -47,6 +52,10 @@ app.configure(authentication);
 app.configure(services);
 // Set up event channels (see channels.js)
 app.configure(channels);
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', '..', 'cms/build/index.html'));
+});
 
 // Configure a middleware for 404s and the error handler
 app.use(express.notFound());
