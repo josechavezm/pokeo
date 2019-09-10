@@ -21,7 +21,6 @@ const authentication = require('./authentication');
 const mongoose = require('./mongoose');
 
 const app = express(feathers());
-
 // Load app configuration
 app.configure(configuration());
 // Enable security, CORS, compression, favicon and body parsing
