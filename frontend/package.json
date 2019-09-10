@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node index.js",
     "clean": "rm -rf ./build",
-    "build": "yarn clean && parcel build ./public/index.html -d ./build --experimental-scope-hoisting",
+    "build": "yarn clean && parcel build ./public/index.html -d ./build",
     "test": "jest --watch"
   },
   "dependencies": {
