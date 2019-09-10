@@ -10,6 +10,7 @@ body {
   background: linear-gradient(137deg, rgba(146, 254, 157, 1) 0%, rgba(0, 201, 255, 1) 100%);
   @apply bg-no-repeat;
   @apply bg-cover;
+  box-sizing: border-box;
 }
 
 .text-cyan {

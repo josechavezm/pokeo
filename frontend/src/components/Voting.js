@@ -1,8 +1,9 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import Card from './Card'
 // import { useTransition, animated } from 'react-spring'
 
 const Voting = ({ availableVotes, firstRender, onVote, morphs }) => {
+  const [disabled, setDisabled] = useState(false)
   // const transitions = useTransition(availableVotes, item => item, {
   //   unique: true,
   //   trail: 400 / availableVotes.length,
@@ -10,6 +11,10 @@ const Voting = ({ availableVotes, firstRender, onVote, morphs }) => {
   //   from: { opacity: firstRender ? 0 : 1, transform: firstRender ? 'scale(0)' : 'scale(1)' },
   //   enter: { opacity: 1, transform: 'scale(1)' }
   // })
+  const handleVote = a => {
+    onVote(a)
+  }
+
   return (
     <div>
       <p>Selecciona una tarjeta para estimar cuanto vale esta tarea</p>
@@ -21,7 +26,7 @@ const Voting = ({ availableVotes, firstRender, onVote, morphs }) => {
         ))} */}
         {availableVotes.map((a, i) => (
           <div key={a} className="px-4 m-auto">
-            <Card clickable {...morphs[a]} onClick={() => onVote(a)} value={a}></Card>
+            <Card clickable={!disabled} {...morphs[a]} onClick={() => handleVote(a)} value={a}></Card>
           </div>
         ))}
       </div>

@@ -5,7 +5,7 @@ const Card = ({ clickable = false, onClick, value, className, ...props }, ref) =
   return (
     <div className="mb-8 flex">
       <button
-        onClick={onClick}
+        onClick={clickable ? onClick : null}
         className={cxs('card', className, {
           zoom: clickable
         })}

@@ -5,8 +5,6 @@ import Card from './Card'
 const Waiting = ({ room, morphs, availableVotes }) => {
   const { user } = useUser()
   const missing = room.votersCount - room.estimations.length
-  console.log('TCL: Waiting -> room.estimations.length', room.estimations.length)
-  console.log('TCL: Waiting -> room.votersCount', room.votersCount)
   const vote = room.estimations.find(e => e.userId === user._id)
 
   return (

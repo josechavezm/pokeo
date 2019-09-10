@@ -10,7 +10,6 @@ exports.Rooms = class Rooms extends Service {
     return super.create({ ...data, createdBy: userId });
   }
   async patch(_id, data, params) {
-    console.log('TCL: Rooms -> patch -> data', data);
     const userId = params.user._id;
     if (data && data.$push && data.$push.estimations) {
       //se agrega userid a la votacion

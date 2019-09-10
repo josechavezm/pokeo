@@ -12,12 +12,9 @@ exports.RoomMembership = class RoomMembership {
     if (!room) {
       throw new NotFound('La sala no existe');
     }
-    console.log('creating membership');
     if (params.connection) {
       try {
         this.app.channel(`room/${data.slug}`).join(params.connection);
-        console.log(this.app.channel(`room/${data.slug}`));
-        console.log('joined room');
       } catch (error) {
         console.log(error);
       }
