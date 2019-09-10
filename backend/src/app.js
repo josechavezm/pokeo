@@ -34,7 +34,7 @@ app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
 // Host the public folder
 app.use('/public', express.static(app.get('public')));
 app.use(
-  expressStaticGzip(path.join(__dirname, '..', '..', 'cms/build'), {
+  expressStaticGzip(path.join(__dirname, '..', '..', 'frontend/build'), {
     enableBrotli: true
   })
 );
@@ -54,7 +54,7 @@ app.configure(services);
 app.configure(channels);
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', '..', 'cms/build/index.html'));
+  res.sendFile(path.join(__dirname, '..', '..', 'frontend/build/index.html'));
 });
 
 // Configure a middleware for 404s and the error handler

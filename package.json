@@ -5,9 +5,9 @@
   "main": "index.js",
   "license": "private",
   "scripts": {
-    "dev-cms": "cd frontend && npm run dev",
+    "dev-frontend": "cd frontend && npm run dev",
     "dev-backend": "cd backend && npm run dev",
-    "dev": "concurrently \"npm run dev-backend\"  \"npm run dev-cms\""
+    "dev": "concurrently \"npm run dev-backend\"  \"npm run dev-frontend\""
   },
   "author": "José Chávez",
   "workspaces": [
