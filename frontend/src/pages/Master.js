@@ -12,7 +12,7 @@ const Master = ({ history, ...props }) => {
       navigator.share({
         title: 'Invitación a votar!',
         text: 'Hola! te invito a votar',
-        url: `http://localhost:1234/${room.slug}`
+        url: `https://pokeo.turbolabs.pe/${room.slug}`
       })
     }
     await login()
