@@ -25,7 +25,7 @@ const Auth = ({ children }) => {
     login()
   }, [])
   if (!user) return null
-  return <AuthContext.Provider value={{ user, login }}>{children}</AuthContext.Provider>
+  return <AuthContext.Provider value={{ user, login, setUser }}>{children}</AuthContext.Provider>
 }
 
 export default Auth

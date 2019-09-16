@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { services } from '../feathers'
+import useReconnect from '../utils/use-reconnect'
 
 const withRoom = Component => ({
   children,
@@ -8,16 +9,13 @@ const withRoom = Component => ({
   }
 }) => {
   const [room, setRoom] = useState(null)
-
-  useEffect(() => {
+  const handler = useCallback(() => {
     services.roomMembership
       .create({ slug: roomSlug })
       .then(setRoom)
-      .then(() => {
-        services.rooms.on('patched', room => setRoom(room))
-      })
+      .then(() => services.rooms.on('patched', setRoom))
   }, [])
-
+  useReconnect(handler)
   if (!room) return null
 
   return <Component room={room} />

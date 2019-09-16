@@ -1,15 +1,34 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useUser } from '../layouts/Auth'
 import Card from './Card'
+import Select from './Select'
+import { services } from '../feathers'
 
-const Waiting = ({ room, morphs, availableVotes }) => {
+const Waiting = ({ room, morphs, availableVotes, onCanVote }) => {
   const { user } = useUser()
+  const [selectedCount, setSelectedCount] = useState(room.votersCount)
+  const isCreator = user._id === room.createdBy
+  const currentCount = room.estimations.length
   const missing = room.votersCount - room.estimations.length
   const vote = room.estimations.find(e => e.userId === user._id)
 
+  function handleVotersCountChange (e) {
+    e.preventDefault()
+    setSelectedCount(e.currentTarget.value)
+    services.rooms.patch(room._id, { votersCount: e.currentTarget.value })
+  }
+
   return (
     <div className="text-center">
-      <p>{missing > 1 ? `Aún faltan ${missing} votos` : 'aun falta 1 voto'}</p>
+      <p>
+        {missing === 0 ? 'Aun no hay votos' : missing === 1 ? 'Hay 1 voto' : `Hay ${currentCount} votos`} de{' '}
+        {isCreator ? (
+          <Select onChange={handleVotersCountChange} currentVotersCount={currentCount} value={selectedCount} />
+        ) : (
+          room.votersCount
+        )}
+      </p>
+      {!vote && <a onClick={onCanVote}>Yo también voto</a>}
       {vote && <p>Ya has emitido tu voto y fue</p>}
       {vote && (
         <div className="flex justify-center mt-4">

@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import Card from './Card'
 // import { useTransition, animated } from 'react-spring'
 
-const Voting = ({ availableVotes, firstRender, onVote, morphs }) => {
+const Voting = ({ availableVotes, firstRender, onVote, morphs, onCantVote }) => {
   const [disabled, setDisabled] = useState(false)
   // const transitions = useTransition(availableVotes, item => item, {
   //   unique: true,
@@ -31,6 +31,7 @@ const Voting = ({ availableVotes, firstRender, onVote, morphs }) => {
           </div>
         ))}
       </div>
+      <a onClick={onCantVote}>Yo no voto</a>
     </div>
   )
 }
