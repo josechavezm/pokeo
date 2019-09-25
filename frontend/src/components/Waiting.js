@@ -14,7 +14,7 @@ const Waiting = ({ room, morphs, availableVotes, onCanVote }) => {
 
   function handleVotersCountChange (e) {
     e.preventDefault()
-    setSelectedCount(e.currentTarget.value)
+    setSelectedCount(e.target.value)
     services.rooms.patch(room._id, { votersCount: e.currentTarget.value })
   }
 
