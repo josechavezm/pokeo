@@ -1431,10 +1431,10 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@xstate/fsm@^0.2.1":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@xstate/fsm/-/fsm-0.2.1.tgz#7927b80927998cde7fcb425655f006ce5168caff"
-  integrity sha512-FAY/wLj6f+uH63CaPGTLbaR+yTLGFWPl7mIB7H7jluNL/3EH5M+N/u0ixuBSe1llExg5oaSDtEARZuJAzivl1w==
+"@xstate/react@^0.8.1":
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/@xstate/react/-/react-0.8.1.tgz#df200547cca24c909572b7aef1ddab8bca3a0603"
+  integrity sha512-8voZm4GX3x70lNQVvoGedoObPYapkQIbgMhE+xOQEsm8Ait4Zto6R01SZ6WJD4qvLl8JPV6uq96OcFRdEsVESg==
 
 abab@^2.0.0:
   version "2.0.1"
@@ -9781,6 +9781,11 @@ xmlhttprequest-ssl@~1.5.4:
   version "1.5.5"
   resolved "https://registry.yarnpkg.com/xmlhttprequest-ssl/-/xmlhttprequest-ssl-1.5.5.tgz#c2876b06168aadc40e57d97e81191ac8f4398b3e"
   integrity sha1-wodrBhaKrcQOV9l+gRkayPQ5iz4=
+
+xstate@^4.7.6:
+  version "4.7.6"
+  resolved "https://registry.yarnpkg.com/xstate/-/xstate-4.7.6.tgz#52907b0232ff78406077ad095eb1ad6bbc6c77cb"
+  integrity sha512-TjBk1/uOxu2yxSQW0eNNasOvKMtg+4KknlkM57Pw9D+jF124nLz+Qo4nEcC98rR6YMw4d9VxunIb5XzOjgLqlQ==
 
 xtend@^4.0.0, xtend@~4.0.1:
   version "4.0.2"

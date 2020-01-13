@@ -12,7 +12,7 @@ const Waiting = ({ room, morphs, availableVotes, onCanVote }) => {
   const missing = room.votersCount - room.estimations.length
   const vote = room.estimations.find(e => e.userId === user._id)
 
-  function handleVotersCountChange (e) {
+  function handleVotersCountChange(e) {
     e.preventDefault()
     setSelectedCount(e.target.value)
     services.rooms.patch(room._id, { votersCount: e.currentTarget.value })
@@ -21,7 +21,7 @@ const Waiting = ({ room, morphs, availableVotes, onCanVote }) => {
   return (
     <div className="text-center">
       <p>
-        {missing === 0 ? 'Aun no hay votos' : missing === 1 ? 'Hay 1 voto' : `Hay ${currentCount} votos`} de{' '}
+        {missing === 0 ? 'Aun no hay votos' : missing === 1 ? 'Falta 1 voto' : `Hay ${currentCount} votos`} de{' '}
         {isCreator ? (
           <Select onChange={handleVotersCountChange} currentVotersCount={currentCount} value={selectedCount} />
         ) : (

@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@feathersjs/client": "^4.3.1",
-    "@xstate/fsm": "^0.2.1",
+    "@xstate/react": "^0.8.1",
     "classnames": "^2.2.6",
     "parcel-bundler": "^1.12.3",
     "parcel-proxy-server": "^1.1.0",
@@ -21,7 +21,8 @@
     "react-morph": "^0.4.0",
     "react-router-dom": "^5.0.1",
     "socket.io-client": "^2.2.0",
-    "tailwindcss": "^1.1.2"
+    "tailwindcss": "^1.1.2",
+    "xstate": "^4.7.6"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",

@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { services } from '../feathers'
-import { useMachine } from '../utils/use-machine'
 import { useUser } from '../layouts/Auth'
 import Voting from '../components/Voting'
 import Waiting from '../components/Waiting'
@@ -8,96 +7,98 @@ import ShowResult from '../components/ShowResult'
 import Button from '../components/Button'
 import withRoom from '../containers/withRoom'
 import { useMorphKeys } from 'react-morph'
-import { assign } from '@xstate/fsm'
+import { assign } from 'xstate'
+import { useMachine } from '@xstate/react'
+import { Machine } from 'xstate'
+
+function usePrevious(value) {
+  const ref = useRef(value)
+  useEffect(() => {
+    ref.current = value
+  }, [value])
+  return ref.current
+}
 
 const Member = ({ room, ...props }) => {
   const { user, login, setUser } = useUser()
-
-  console.log('TCL: Member -> user', user.canVote)
-  // const firstRender = useRef(true)
-  // useEffect(() => {
-  //   firstRender.current = false
-  // }, [])
-
-  const userVoted = room.estimations.map(e => e.userId).includes(user._id)
-
   const availableVotes = [1, 2, 3, 5, 8, 13, 100]
   const morphs = useMorphKeys(availableVotes)
-
-  const machineRef = {
-    initial: user.canVote && !userVoted ? 'voting' : 'waiting',
-    context: {
-      canVote: user.canVote,
-      room: null
-    },
-    states: {
-      waiting: {
-        on: {
-          ALL_VOTED: 'showResult',
-          CAN_VOTE: { target: 'voting', actions: assign(context => ({ canVote: true })) },
-          RESTART: [
-            {
-              target: 'voting',
-              cond: context => context.canVote
-            },
-            {
-              target: 'waiting',
-              cond: context => !context.canVote
-            }
-          ]
-        }
+  const userVoted = room.estimations.map(e => e.userId).includes(user._id)
+  const roomMachine = Machine(
+    {
+      initial: user.canVote && !userVoted ? 'voting' : 'waiting',
+      context: {
+        canVote: user.canVote,
+        room
       },
-      showResult: {
-        on: {
-          RESTART: [
-            {
-              target: 'voting',
-              cond: context => context.canVote
-            },
-            {
-              target: 'waiting',
-              cond: context => !context.canVote
-            }
-          ]
-        }
+      on: {
+        SYNC_ROOM: {
+          actions: 'syncRoom'
+        },
+        RESTART: [
+          {
+            target: 'voting',
+            cond: context => context.canVote
+          },
+          {
+            target: 'waiting',
+            cond: context => !context.canVote
+          }
+        ]
       },
-      voting: {
-        on: {
-          CANT_VOTE: { target: 'waiting', actions: assign(context => ({ canVote: false })) },
-          ALL_VOTED: 'showResult',
-          VOTED: 'waiting',
-          RESTART: [
-            {
+      states: {
+        waiting: {
+          on: {
+            ALL_VOTED: 'showResult',
+            CAN_VOTE: {
               target: 'voting',
-              cond: context => context.canVote
-            },
-            {
-              target: 'waiting',
-              cond: context => !context.canVote
+              actions: assign(context => ({ canVote: true }))
             }
-          ]
+          }
+        },
+        showResult: {},
+        voting: {
+          on: {
+            CANT_VOTE: {
+              target: 'waiting',
+              actions: assign(context => ({ canVote: false }))
+            },
+            ALL_VOTED: 'showResult',
+            VOTED: 'waiting'
+          }
         }
       }
+    },
+    {
+      actions: {
+        syncRoom: assign((context, event) => ({
+          room: event.room
+        }))
+      }
     }
-  }
+  )
+  const [current, send] = useMachine(roomMachine)
 
   useEffect(() => {
-    if (!room) return
-    if (room.estimations.length === room.votersCount) {
-      transition('ALL_VOTED')
-      return
+    const prevRoom = current.context.room
+    const prevUserVoted = prevRoom?.estimations.map(e => e.userId).includes(user._id)
+    const userVoted = room.estimations.map(e => e.userId).includes(user._id)
+    if (prevRoom?.estimations.length <= room.estimations.length && room.estimations.length === room.votersCount) {
+      send('ALL_VOTED', room)
     }
-    if (userVoted) {
-      transition('VOTED')
-      return
+    if (!prevUserVoted && userVoted) {
+      send('VOTED', room)
     }
-    if (room.estimations.length === 0) {
-      transition('RESTART')
+    if (prevRoom?.estimations.length > 0 && room.estimations.length === 0) {
+      send('RESTART', room)
     }
+    send('SYNC_ROOM', { room })
   }, [room])
 
   const patchRoom = async vote => {
-    await services.rooms.patch(room._id, { $push: { estimations: { value: vote } } })
+    await services.rooms.patch(current.context.room._id, {
+      $push: { estimations: { value: vote } }
+    })
   }
 
   const handleNewVote = async () => {
@@ -108,20 +109,17 @@ const Member = ({ room, ...props }) => {
     try {
       const patchedUser = await services.users.patch(user._id, { canVote })
       setUser(patchedUser)
-      canVote ? transition('CAN_VOTE') : transition('CANT_VOTE')
+      canVote ? send('CAN_VOTE') : send('CANT_VOTE')
     } catch (error) {
       console.log('got error')
     }
   }
 
-  const { state, transition } = useMachine(machineRef)
-  if (!room) return null
-
   const getPage = () => {
-    if (state.value === 'showResult') {
-      return room.estimations.length > 0 && <ShowResult morphs={morphs} room={room} />
+    if (current.value === 'showResult') {
+      return <ShowResult morphs={morphs} room={current.context.room} />
     }
-    if (state.value === 'voting') {
+    if (current.value === 'voting') {
       return (
         <Voting
           onCantVote={() => handleCanVote(false)}
@@ -131,14 +129,14 @@ const Member = ({ room, ...props }) => {
         />
       )
     }
-    if (state.value === 'waiting') {
+    if (current.value === 'waiting') {
       return (
         <Waiting
           onCanVote={() => handleCanVote(true)}
           availableVotes={availableVotes}
           morphs={morphs}
-          room={room}
-        ></Waiting>
+          room={current.context.room}
+        />
       )
     }
   }
@@ -148,11 +146,10 @@ const Member = ({ room, ...props }) => {
   return (
     <div>
       {getPage()}
-
       {isCreator && (
         <Button className="mt-6" onClick={handleNewVote}>
-          {(state.value === 'waiting' || state.value === 'voting') && <span>Reiniciar votación</span>}
-          {state.value === 'showResult' && <span>Empezar nueva votación</span>}
+          {(current.value === 'waiting' || current.value === 'voting') && <span>Reiniciar votación</span>}
+          {current.value === 'showResult' && <span>Empezar nueva votación</span>}
         </Button>
       )}
     </div>
