@@ -11,14 +11,6 @@ import { assign } from 'xstate'
 import { useMachine } from '@xstate/react'
 import { Machine } from 'xstate'
 
-function usePrevious(value) {
-  const ref = useRef(value)
-  useEffect(() => {
-    ref.current = value
-  }, [value])
-  return ref.current
-}
-
 const Member = ({ room, ...props }) => {
   const { user, login, setUser } = useUser()
   const availableVotes = [1, 2, 3, 5, 8, 13, 100]
@@ -26,7 +18,7 @@ const Member = ({ room, ...props }) => {
   const userVoted = room.estimations.map(e => e.userId).includes(user._id)
   const roomMachine = Machine(
     {
-      initial: user.canVote && !userVoted ? 'voting' : 'waiting',
+      initial: 'verifying',
       context: {
         canVote: user.canVote,
         room
@@ -47,6 +39,17 @@ const Member = ({ room, ...props }) => {
         ]
       },
       states: {
+        verifying: {
+          on: {
+            '': [
+              {
+                target: 'voting',
+                cond: ctx => user.canVote && !userVoted
+              },
+              { target: 'waiting', cond: ctx => !user.canVote }
+            ]
+          }
+        },
         waiting: {
           on: {
             ALL_VOTED: 'showResult',
