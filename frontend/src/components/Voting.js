@@ -31,7 +31,9 @@ const Voting = ({ availableVotes, firstRender, onVote, morphs, onCantVote }) => 
           </div>
         ))}
       </div>
-      <a onClick={onCantVote}>Yo no voto</a>
+      <a className="text-white font-bold underline cursor-pointer" onClick={onCantVote}>
+        Yo no voto
+      </a>
     </div>
   )
 }

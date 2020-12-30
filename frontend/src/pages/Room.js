@@ -98,15 +98,12 @@ const Member = ({ room, ...props }) => {
     send('SYNC_ROOM', { room })
   }, [room])
 
-  const patchRoom = async vote => {
-    await services.rooms.patch(current.context.room._id, {
+  const patchRoom = vote =>
+    services.rooms.patch(current.context.room._id, {
       $push: { estimations: { value: vote } }
     })
-  }
 
-  const handleNewVote = async () => {
-    await services.rooms.patch(room._id, { estimations: [] })
-  }
+  const handleNewVote = () => services.rooms.patch(room._id, { estimations: [] })
 
   const handleCanVote = async canVote => {
     try {

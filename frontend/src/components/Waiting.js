@@ -20,7 +20,7 @@ const Waiting = ({ room, morphs, availableVotes, onCanVote }) => {
 
   return (
     <div className="text-center">
-      <p>
+      <p className="mb-4">
         {missing === 0 ? 'Aun no hay votos' : missing === 1 ? 'Falta 1 voto' : `Hay ${currentCount} votos`} de{' '}
         {isCreator ? (
           <Select onChange={handleVotersCountChange} currentVotersCount={currentCount} value={selectedCount} />
@@ -28,7 +28,11 @@ const Waiting = ({ room, morphs, availableVotes, onCanVote }) => {
           room.votersCount
         )}
       </p>
-      {!vote && <a onClick={onCanVote}>Yo también voto</a>}
+      {!vote && (
+        <a className="text-white font-bold underline cursor-pointer" onClick={onCanVote}>
+          Yo también voto
+        </a>
+      )}
       {vote && <p>Ya has emitido tu voto y fue</p>}
       {vote && (
         <div className="flex justify-center mt-4">
