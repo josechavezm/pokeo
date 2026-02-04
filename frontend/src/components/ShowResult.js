@@ -10,7 +10,7 @@ const ShowResult = ({ isCreator, morphs, room, onNewVote }) => {
       {isAllEqual ? (
         <div className="">
           <Confetti width={document.body.clientWidth} />
-          <h1 className="text-2xl">Felicidades, todos votaron por igual!</h1>
+          <h1 className="text-2xl">Congratulations, you all voted the same</h1>
           <Card
             {...morphs[room.estimations[0].value]}
             className="w-full max-w-sm m-auto h-128 text-7xl"

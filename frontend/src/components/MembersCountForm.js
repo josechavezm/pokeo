@@ -12,11 +12,11 @@ const MembersCountForm = ({ onSubmit }) => {
   return (
     <form className="text-center" onSubmit={handleSubmit}>
       <label className="block mt-4" htmlFor="voters-count">
-        ¿Cuántas personas ponen puntos?
+        How many voters do we have?
       </label>
       <Select value={selectedCount} onChange={event => setSelectedCount(event.target.value)} />
       <Button size="small" className="mt-8 text-sm">
-        Invitar
+        Create room
       </Button>
     </form>
   )

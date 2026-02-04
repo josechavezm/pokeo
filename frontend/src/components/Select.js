@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Select = ({ value, onChange, currentVotersCount = 0, ...props }) => {
-  const options = [...Array(11).keys()]
+  const options = [...Array(51).keys()]
   options.shift()
 
   return (

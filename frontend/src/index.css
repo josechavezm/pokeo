@@ -5,11 +5,19 @@ html {
 }
 
 body {
-  background: rgb(0, 201, 255);
   min-height: calc(100vh + 1px);
-  background: linear-gradient(137deg, rgba(146, 254, 157, 1) 0%, rgba(0, 201, 255, 1) 100%);
-  @apply bg-no-repeat bg-cover pb-6;
+  background: #0f0e17;
+  @apply bg-no-repeat bg-cover pb-6 text-headers;
   box-sizing: border-box;
+}
+
+p,
+span {
+  @apply text-paragraphs;
+}
+
+select {
+  @apply bg-transparent text-black;
 }
 
 .text-cyan {
@@ -27,9 +35,9 @@ body {
 }
 
 .card {
-  @apply text-5xl shadow-xl font-bold w-32 block bg-white flex justify-center items-center font-numbers;
+  @apply text-5xl shadow-xl font-bold w-32 bg-white flex justify-center items-center font-numbers rounded text-tertiary;
   height: 12rem;
-  color: rgba(0, 201, 255, 1);
+
   will-change: transform, opacity, zoom;
 }
 

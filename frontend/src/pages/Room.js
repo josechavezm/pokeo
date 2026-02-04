@@ -148,8 +148,8 @@ const Member = ({ room, ...props }) => {
       {getPage()}
       {isCreator && (
         <Button className="mt-6" onClick={handleNewVote}>
-          {(current.value === 'waiting' || current.value === 'voting') && <span>Reiniciar votación</span>}
-          {current.value === 'showResult' && <span>Empezar nueva votación</span>}
+          {(current.value === 'waiting' || current.value === 'voting') && 'Restart vote'}
+          {current.value === 'showResult' && 'Start a new vote'}
         </Button>
       )}
     </div>

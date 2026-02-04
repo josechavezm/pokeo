@@ -3,6 +3,7 @@ import { useUser } from '../layouts/Auth'
 import Card from './Card'
 import Select from './Select'
 import { services } from '../feathers'
+import Button from './Button'
 
 const Waiting = ({ room, morphs, availableVotes, onCanVote }) => {
   const { user } = useUser()
@@ -21,7 +22,8 @@ const Waiting = ({ room, morphs, availableVotes, onCanVote }) => {
   return (
     <div className="text-center">
       <p className="mb-4">
-        {missing === 0 ? 'Aun no hay votos' : missing === 1 ? 'Falta 1 voto' : `Hay ${currentCount} votos`} de{' '}
+        {missing === 0 ? 'There are no votes yet' : missing === 1 ? '1 vote missing' : `We have ${currentCount} votes`}{' '}
+        out of{'  '}
         {isCreator ? (
           <Select onChange={handleVotersCountChange} currentVotersCount={currentCount} value={selectedCount} />
         ) : (
@@ -29,9 +31,9 @@ const Waiting = ({ room, morphs, availableVotes, onCanVote }) => {
         )}
       </p>
       {!vote && (
-        <a className="text-white font-bold underline cursor-pointer" onClick={onCanVote}>
-          Yo también voto
-        </a>
+        <Button size="small" variant="secondary" onClick={onCanVote}>
+          I want to vote
+        </Button>
       )}
       {vote && <p>Ya has emitido tu voto y fue</p>}
       {vote && (
